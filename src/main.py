@@ -3,6 +3,7 @@
 ####################################
 import random
 import string
+import markovify
 
 def read_file(filename):
     book = open(f"data/{filename}","r")
@@ -24,22 +25,39 @@ texts = [
 
 text = ""
 
-lines = text.split("\n")
+scrambled = ""
 
-lines = [line for line in lines if line != ""] # <---"list comprehension"
-    # <-- if i print(lines) it will print it in a huge chuck cause of previous command
-    
 for book in texts:
     text += read_file(book) + "\n"
+corpus = text.split(" ")
+corpus = set(corpus)
     
-for line in text:
-    words = line.split(" ")
-    for word in words:
-        new_word = scramble(word)
-        line = line.replace(word,new_word)
-
-
-poem = "\n".join(random.sample(line,20))
-
+for word in corpus:
+#     words = line.split(" ")
+#     for word in words:
+    new_word = scramble(word)
+    text = text.replace(word,new_word)
+   # poem = "\n".join(random.sample(line,20))
+    #print(line)
+        
 with open("Jabberwocky2.0", "w") as output:
-    output.write(poem)
+    output.write(text)
+
+    
+model = markovify.NewlineText(text,state_size=1)
+
+# Generate 10 sentences
+for _ in range(10):
+    scrambled += model.make_short_sentence((60) + "\n") 
+print(scrambled)   
+# with open("Jabberwocky2.0", "w") as output:
+#     output.write(text)
+
+
+# lines = text.split("\n")
+
+# lines = [line for line in lines if line != ""] # <---"list comprehension"
+#     # <-- if i print(lines) it will print it in a huge chuck cause of previous command
+     
+    
+    
