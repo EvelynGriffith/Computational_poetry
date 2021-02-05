@@ -3,14 +3,22 @@
 import random
 from textwrap3 import wrap
 import markovify
-
+import string
     
 ####################################
-def read_file(book_name):
-    book = open(f"data/{book_name}","r")
+def scramble(word):
+    word = "".join([ch for ch in word if ch not in string.punctuation])
+    if word not in keeps:
+        scrambled = random.sample(word,len(word))
+        return "".join(scrambled)
+    return word
+
+def read_file(file):
+    book = open(f"data/{file}","r")
     return book.read()
 
-keeps = ["the", "in", "to", "a", "for"]
+
+keeps = ["the"]
 text = [
     "aesop.txt",
     "fairytales.txt",
@@ -19,30 +27,16 @@ text = [
 texts = ""
 
 for book in text:
-    text += read_file(book) + "\n"
+    texts += read_file(book) + "\n"
 lines = texts.split("\n")
 words = texts.split(" ")
 
-def scramble(word):
-    if word not in keeps:
-        scrambled = random.sample(word, len(word))
-        return " ".join(scrambled)
-    return word
 
 for line in text:
     words = line.split(" ")
     for word in words:
         new_word = scramble(word)
-        line = line.replace(word, new_word)
-
-lines = [line for line in lines if line != ""]
-
-
-poem.write(wrapped[0] + "\nEvelyn Griffith\n\n")
-
-for wrap in wrapped:
-    poem.write(wrap + "\n")
+        line = line.replace(word,new_word)
+    print(line)
     
-    
-with open("Jabberwocky2.0", "w") as output:
-    output.write(poem)
+
