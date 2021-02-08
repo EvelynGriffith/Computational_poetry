@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-    
-####################################
 import random
 import string
 import markovify # <-- importing markovifym random, string and textwrap3
@@ -28,6 +26,8 @@ text = ""#<-- defining text for later commands
 
 scrambled = ""#<-- defining scrambled for later commands
 
+wrapped = ""
+
 for book in texts:#<-- getting the program to read the specific books
     text += read_file(book) + "\n"
 corpus = text.split(" ")
@@ -35,12 +35,7 @@ corpus = set(corpus)
     
 for word in corpus:#<-- scrambling the words and replacing words with new scrambled words
     new_word = scramble(word)
-    text = text.replace(word,new_word)
-    wrapped = wrap(" ".join(text), 40)#<-- attempting to join text and wrap it in poem format
+    text = text.replace(word,new_word) #<-- attempting to join text and wrap it in poem format
 
-
-with open("Jabberwocky2.0", "w") as output:#<-- printing new poem as 'Jabberwocky2.0' and writing it in a seperate file
-     output.write(text)
-     
-    
-    
+with open("Jabberwocky", "w") as output:
+    output.write(text)
