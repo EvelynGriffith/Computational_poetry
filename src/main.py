@@ -34,8 +34,9 @@ corpus = text.split(" ")
 corpus = set(corpus)
     
 for word in corpus:#<-- scrambling the words and replacing words with new scrambled words
-    new_word = scramble(word)
+    new_word = scramble(word) #< -- new variable for generation of new word
     text = text.replace(word,new_word) #<-- attempting to join text and wrap it in poem format
 
 with open("Jabberwocky", "w") as output:
     output.write(text)
+    #writing out the first file that will be accessed by other document.
